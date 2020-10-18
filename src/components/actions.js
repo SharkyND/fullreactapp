@@ -16,3 +16,10 @@ export const removeTodo = (text) => ({
   type: REMOVE_TODO,
   payload: { text },
 });
+
+export const DONE_TODO = "DONE_TODO";
+
+export const doneTodo = (element) => ({
+  type: DONE_TODO,
+  payload: { element },
+});
