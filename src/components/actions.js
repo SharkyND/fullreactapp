@@ -23,3 +23,22 @@ export const doneTodo = (element) => ({
   type: DONE_TODO,
   payload: { element },
 });
+
+export const LOADS_TODOS_IN_PROGRESS = "LOADS_TODOS_IN_PROGRESS";
+
+export const loadingTodosInProgress = () => ({
+  type: LOADS_TODOS_IN_PROGRESS,
+});
+
+export const LOADS_TODOS_SUCCESSFUL = "LOADS_TODOS_SUCCESSFUL";
+
+export const loadingTodosSucessful = (todos) => ({
+  type: LOADS_TODOS_SUCCESSFUL,
+  payload: { todos },
+});
+
+export const LOADS_TODOS_FAILURE = "LOADS_TODOS_FAILURE";
+
+export const loadingTodosFailure = () => ({
+  type: LOADS_TODOS_FAILURE,
+});

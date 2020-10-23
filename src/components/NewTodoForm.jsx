@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux"; //its a higher order function
 import { createTodo } from "./actions";
+import { addTodoRequest } from "./thunks";
 //you can import the css later
 
 const NewTodoForm = ({ todos, onCreatePressed }) => {
@@ -21,9 +22,9 @@ const NewTodoForm = ({ todos, onCreatePressed }) => {
             (element) => element.text === inputValue
           );
           if (!isDuplicate) {
+            console.log(inputValue, "kkkk");
             onCreatePressed(inputValue);
             setInputValue("");
-            console.log(inputValue, setInputValue, "inout");
           }
         }}
       >
@@ -44,7 +45,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   //This properties of the object we returned will be passed to the component in props!!! Thats why they are objects!!!
   //dispatch is a function that triggers actio to which our redux store will respond too
-  onCreatePressed: (text) => dispatch(createTodo(text)),
+  onCreatePressed: (text) => dispatch(addTodoRequest(text)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewTodoForm);

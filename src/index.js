@@ -10,12 +10,10 @@ const store = configureStore();
 const persist = persistStore(store);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={<div>Loading..</div>} persistor={persist}>
-        <App />
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <PersistGate loading={<div>Loading..</div>} persistor={persist}>
+      <App />
+    </PersistGate>
+  </Provider>,
   document.getElementById("root")
 );

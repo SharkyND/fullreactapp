@@ -4,6 +4,25 @@
 
 import { REMOVE_TODO, CREATE_TODO, DONE_TODO } from "./actions";
 
+import {
+  LOADS_TODOS_IN_PROGRESS,
+  LOADS_TODOS_SUCCESSFUL,
+  LOADS_TODOS_FAILURE,
+} from "./actions";
+
+export const isLoading = (state = false, action) => {
+  const { type } = action;
+  switch (type) {
+    case LOADS_TODOS_IN_PROGRESS:
+      return true;
+    case LOADS_TODOS_SUCCESSFUL:
+    case LOADS_TODOS_FAILURE:
+      return false;
+    default:
+      return state;
+  }
+};
+
 //We want to set the initial state of the array to an empty array
 
 export const todos = (state = [], action) => {
@@ -12,11 +31,12 @@ export const todos = (state = [], action) => {
   switch (type) {
     case CREATE_TODO: {
       const { text } = payload;
-      const newTodo = {
+      /*const newTodo = {
         text,
         isCompleted: false,
-      };
-      return state.concat(newTodo);
+      };*/
+      //return state.concat(newTodo);
+      return state.concat(text);
       //This concat doesn't actually mutate the element
     }
 
@@ -36,10 +56,16 @@ export const todos = (state = [], action) => {
           };
       });
     }
-    default: {
-      return state;
-      //These reducers will be called whenever any action is triggered
-      // if no action is done here, we will still return the actual state
+    case LOADS_TODOS_SUCCESSFUL: {
+      const { todos } = payload;
+      return todos;
     }
+
+    case LOADS_TODOS_IN_PROGRESS:
+    case LOADS_TODOS_IN_PROGRESS:
+    default:
+      return state;
+    //These reducers will be called whenever any action is triggered
+    // if no action is done here, we will still return the actual state
   }
 };
