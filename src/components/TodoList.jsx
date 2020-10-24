@@ -2,8 +2,8 @@ import React, { Component, useEffect } from "react";
 import TodoListItem from "./TodoListItem";
 import NewTodoForm from "./NewTodoForm";
 import { removeTodo, doneTodo } from "./actions";
-import { loadTodos } from "./thunks";
-import { displayAlert } from "./thunks";
+import { loadTodos, deleteElementRequest } from "./thunks";
+import { displayAlert, markDoneRequest } from "./thunks";
 //you can import the css later
 import { connect } from "react-redux"; //its a higher order function
 
@@ -29,7 +29,7 @@ const TodoList = ({
           todo={element}
           onRemoveClicked={onRemoveClicked}
           onDoneClicked={onDoneClicked}
-          key={element.text}
+          key={element._id}
         />
       ))}
     </div>
@@ -45,8 +45,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   startloadingTodo: () => dispatch(loadTodos()),
-  onRemoveClicked: (text) => dispatch(removeTodo(text)),
-  onDoneClicked: (element) => dispatch(doneTodo(element)),
+  onRemoveClicked: (element) => dispatch(deleteElementRequest(element)),
+  onDoneClicked: (text) => dispatch(markDoneRequest(text)),
   onDisplayalertClick: () => dispatch(displayAlert()),
 });
 

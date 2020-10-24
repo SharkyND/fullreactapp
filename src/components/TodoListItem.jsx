@@ -27,10 +27,7 @@ const TodoListItem = ({ todo, onRemoveClicked, onDoneClicked }) => {
             Click to Change Status
           </button>
         )}
-        <button
-          className="remove-button"
-          onClick={() => onRemoveClicked(todo.text)}
-        >
+        <button className="remove-button" onClick={() => onRemoveClicked(todo)}>
           Remove
         </button>
       </div>

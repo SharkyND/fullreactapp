@@ -3,6 +3,8 @@ import {
   loadingTodosSucessful,
   loadingTodosFailure,
   createTodo,
+  doneTodo,
+  removeTodo,
 } from "./actions";
 
 export const loadTodos = () => async (dispatch, getState) => {
@@ -38,8 +40,45 @@ export const addTodoRequest = (texts) => async (dispatch) => {
       body: JSON.stringify({ text: texts }),
     });
     const todo = await reponse.json();
-    console.log(todo, "Geeting tezt");
     dispatch(createTodo(todo));
+  } catch (e) {
+    dispatch(displayAlert(e));
+  }
+};
+
+export const markDoneRequest = (element) => async (dispatch) => {
+  try {
+    const text = element._id;
+    const path_to_send = "http://localhost:5000/todos/" + text + "/completed";
+    const reponse = await fetch(path_to_send, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const todo = await reponse.json();
+    dispatch(doneTodo(todo));
+    console.log(todo);
+    //dispatch(loadTodos());
+  } catch (e) {
+    dispatch(displayAlert(e));
+  }
+};
+
+export const deleteElementRequest = (element) => async (dispatch) => {
+  try {
+    const text = element._id;
+    const path_to_send = "http://localhost:5000/todos/" + text;
+    const reponse = await fetch(path_to_send, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const reply = await reponse.json();
+    console.log(reply);
+
+    dispatch(removeTodo(element._id));
   } catch (e) {
     dispatch(displayAlert(e));
   }

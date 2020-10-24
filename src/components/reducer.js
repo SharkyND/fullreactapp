@@ -42,18 +42,20 @@ export const todos = (state = [], action) => {
 
     case REMOVE_TODO: {
       const { text } = payload;
-      return state.filter((element) => element.text !== text);
+      return state.filter((element) => element._id !== text);
     }
 
     case DONE_TODO: {
       const { element } = payload;
+      console.log(element, "stateelement");
       return state.map((todo) => {
-        if (todo !== element) return todo;
-        else
-          return {
+        if (todo._id !== element._id) return todo;
+        /*return {
             ...todo,
-            isCompleted: !todo.isCompleted,
-          };
+            isCompleted: element.isCompleted,
+          };*/ else
+          console.log("Entered here");
+        return element;
       });
     }
     case LOADS_TODOS_SUCCESSFUL: {
