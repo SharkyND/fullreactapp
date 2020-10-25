@@ -58,7 +58,7 @@ export const markDoneRequest = (element) => async (dispatch) => {
     });
     const todo = await reponse.json();
     dispatch(doneTodo(todo));
-    console.log(todo);
+
     //dispatch(loadTodos());
   } catch (e) {
     dispatch(displayAlert(e));
