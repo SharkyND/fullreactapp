@@ -17,6 +17,14 @@ const TodoItemContainer = styled.div`
   box-shadow: 0 4px 8px grey;
 `;
 
+// this is the way of extending the style component, and using the logic in it
+const TodoItemContainerWarning = styled(TodoItemContainer)`
+  border-bottom: ${(props) =>
+    new Date(props.createdAt) > new Date(Date.now())
+      ? "none"
+      : "2px solid red"};
+`;
+
 const ButtonsContainer = styled.div`
   position: absolute;
   right: 12px;
@@ -60,10 +68,21 @@ const RemoveButton = styled.button`
   margin-left: 8px;
 `;
 
+const PadingTime = styled.p`
+  padding: 25px 50px 75px 100px;
+`;
+
 const TodoListItem = ({ todo, onRemoveClicked, onDoneClicked }) => {
+  const Cotainer = todo.isCompleted
+    ? TodoItemContainer
+    : TodoItemContainerWarning;
+
   return (
-    <TodoItemContainer>
+    <Cotainer createdAt={todo.createdAt}>
       <h3>{todo.text}</h3>
+      <PadingTime>
+        Created at: {new Date(todo.createdAt).toLocaleDateString()}
+      </PadingTime>
       <ButtonsContainer>
         {todo.isCompleted === false ? (
           <MarkDoneButton
@@ -87,7 +106,7 @@ const TodoListItem = ({ todo, onRemoveClicked, onDoneClicked }) => {
           Remove
         </RemoveButton>
       </ButtonsContainer>
-    </TodoItemContainer>
+    </Cotainer>
   );
 };
 
